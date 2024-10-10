@@ -2,7 +2,7 @@
 import User from '../entity/user.entity.js';
 import { AppDataSource } from '../config/configDb.js';
 import { userBodyValidation } from '../validations/user.validation.js';
-import { createUserService, getUserService, getUsersService } from '../services/user.service.js';
+import { createUserService, getUserService, getUsersService, updateUserService, deleteUserService } from '../services/user.service.js';
 
 
 export async function createUser(req, res) {
@@ -51,9 +51,8 @@ export async function getUser(req, res) {
 
 export async function getUsers(req, res) {
     try {
-        /*const userRepository = AppDataSource.getRepository(User);
+        //const userRepository = AppDataSource.getRepository(User);
 
-        const users = await userRepository.find();*/
         const users = await getUsersService();
         if(!users || users.length === 0) {
             return res.status(404).json({
@@ -61,7 +60,6 @@ export async function getUsers(req, res) {
                 data: null
             });
         }
-        
 
         res.status(200).json({
             message: "Usuarios encontrados",
